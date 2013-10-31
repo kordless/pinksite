@@ -14,7 +14,9 @@ if [ ! -d "pinkpanthers" ]; then
   git submodule update
   echo "Done."
 else
-  echo "Nothing to do.  Exiting."
+  echo "Updating pinkpanthers directory."
+  git submodule init
+  git submodule update
 fi
 
 
