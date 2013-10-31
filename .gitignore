@@ -32,3 +32,6 @@ nosetests.xml
 
 # pinkpanthers
 pinkpanthers
+
+# osx
+.DS_Store
