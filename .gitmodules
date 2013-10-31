@@ -1,0 +1,3 @@
+[submodule "pinkpanthers"]
+	path = pinkpanthers
+	url = https://github.com/kordless/pinkpanthers.git
