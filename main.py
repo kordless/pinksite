@@ -48,4 +48,3 @@ if not app.debug:
 routes.add_routes(app)
 pink_routes.add_routes(app)
 
-

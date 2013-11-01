@@ -1,11 +1,14 @@
+# app setup
 application: YOUR_APP_ID
 version: dev
 runtime: python27
 api_version: 1
 threadsafe: true
 
+# cache expires
 default_expiration: "30d"
 
+# ignores
 skip_files:
 - ^(.*/)?app\.yaml
 - ^(.*/)?app\.yml
@@ -14,69 +17,45 @@ skip_files:
 - ^(.*/)?.*\.py[co]
 - ^(.*/)?.*/RCS/.*
 - ^(.*/)?\..*
-- ^(.*/)?tests$
-- ^(.*/)?test$
-- ^test/(.*/)?
 - ^LICENSE
 - ^README\..*
 - \.gitignore
 - ^\.git/.*
-- \.*\.lint$
-- ^testrunner\.py
 
+# builtins
 builtins:
 - appstats: on #/_ah/stats/
 - remote_api: on #/_ah/remote_api/
 
+# statics
 - url: /favicon\.ico
   mime_type: image/vnd.microsoft.icon
-  static_files: static/favicon.ico
-  upload: static/favicon.ico
-
-- url: /apple-touch-icon\.png
-  static_files: static/apple-touch-icon.png
-  upload: static/apple-touch-icon.png
-
-- url: /apple-touch-icon-precomposed\.png
-  static_files: static/apple-touch-icon-precomposed.png
-  upload: static/apple-touch-icon-precomposed.png
+  static_files: site/static/favicon.ico
+  upload: site/static/favicon.ico
 
 - url: /(robots\.txt|crossdomain\.xml)
-  static_files: static/\1
-  upload: static/(robots\.txt|crossdomain\.xml)
-
-- url: /pinkpanther/css
-  mime_type: text/css
-  static_dir: pinkpanther/static/css
-
-- url: /pinkpanther/js
-  mime_type: text/javascript
-  static_dir: pinkpanther/static/js
-
-- url: /pinkpanther/img/(.*\.(gif|png|jpg))
-  static_files: pinkpanther/static/img/\1
-  upload: pinkpanther/static/img/(.*\.(gif|png|jpg))
-
-- url: /img/(.*\.(gif|png|jpg|jpeg))
-  static_files: static/img/\1
-  upload: static/img/(.*\.(gif|png|jpg|jpeg))
-
-- url: /css/(.*\.(gif|png|jpg|jpeg))
-  static_files: static/css/\1
-  upload: static/css/(.*\.(gif|png|jpg|jpeg))
+  static_files: site/static/\1
+  upload: site/static/(robots\.txt|crossdomain\.xml)
 
 - url: /css
   mime_type: text/css
-  static_dir: static/css
+  static_dir: site/static/css
 
 - url: /js
   mime_type: text/javascript
-  static_dir: static/js
+  static_dir: site/static/js
+
+- url: /img/(.*\.(gif|png|jpg))
+  static_files: site/static/img/\1
+  upload: site/static/img/(.*\.(gif|png|jpg))
 
 - url: /.*
   script: main.app
-#  secure: always
 
+# secure mode
+secure: always
+
+# libraries
 libraries:
 - name: jinja2
   version: "2.6"
@@ -88,13 +67,12 @@ libraries:
   version: "2.6"
 
 error_handlers:
-  # Only errors with error_code, don't put a default error here
   - error_code: over_quota
-    file: pinkpanther/templates/errors/over_quota.html
+    file: site/templates/errors/over_quota.html
 
   - error_code: dos_api_denial
-    file: pinkpanther/templates/errors/dos_api_denial.html
+    file: site/templates/errors/dos_api_denial.html
 
   - error_code: timeout
-    file: pinkpanther/templates/errors/timeout.html
+    file: site/templates/errors/timeout.html
 
